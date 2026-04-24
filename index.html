@@ -3,522 +3,521 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>I Love Kanbing ✨ Selamat Tahun Baru</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Webopedia: Hosting, Server, Database & CRUD</title>
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: Inter modern sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            user-select: none; /* sedikit mengurangi seleksi teks, tapi tetap nyaman */
         }
 
         body {
-            min-height: 100vh;
-            background: linear-gradient(145deg, #fff9f0 0%, #ffe6c9 100%);
-            font-family: 'Quicksand', 'Segoe UI', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f7fc 0%, #eef2f8 100%);
+            color: #1e293b;
+            line-height: 1.5;
+            padding: 2rem 1.5rem;
         }
 
-        /* efek confetti latar (snow/kilau) */
-        .snow-flake, .glitter {
-            position: fixed;
-            top: -10px;
-            pointer-events: none;
-            z-index: 10;
-            font-size: 1rem;
-            opacity: 0.7;
-            animation: fall linear forwards;
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        @keyframes fall {
-            to {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* kartu utama */
-        .card {
-            max-width: 580px;
-            width: 100%;
-            background: rgba(255, 250, 240, 0.95);
-            backdrop-filter: blur(2px);
-            border-radius: 70px 70px 80px 80px;
-            box-shadow: 0 30px 45px rgba(0, 0, 0, 0.2), 0 8px 18px rgba(0, 0, 0, 0.1), inset 0 1px 2px rgba(255,255,240,0.8);
-            overflow: hidden;
-            transition: transform 0.3s ease;
+        /* header */
+        .hero {
             text-align: center;
-            padding: 25px 25px 45px;
-            border: 1px solid rgba(255,215,150,0.7);
-            position: relative;
-            z-index: 20;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0f2b3d, #1e4a6e);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #475569;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .badge-intro {
+            display: inline-block;
+            background: #e2e8f0;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            color: #1e293b;
+            margin-top: 1rem;
+        }
+
+        /* search & filter simple */
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 60px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03), 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .search-box {
+            flex: 2;
+            min-width: 200px;
+            display: flex;
+            align-items: center;
+            background: #f1f5f9;
+            border-radius: 48px;
+            padding: 0.4rem 1rem;
+            gap: 0.5rem;
+        }
+
+        .search-box i {
+            color: #5b6e8c;
+            font-size: 1.1rem;
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            width: 100%;
+            outline: none;
+            font-weight: 400;
+            padding: 0.5rem 0;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid #cbd5e1;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #334155;
+        }
+
+        .filter-btn.active {
+            background: #1e4a6e;
+            border-color: #1e4a6e;
+            color: white;
+            box-shadow: 0 2px 8px rgba(30,74,110,0.2);
+        }
+
+        .filter-btn:hover:not(.active) {
+            background: #e2e8f0;
+            border-color: #94a3b8;
+        }
+
+        .counter {
+            font-size: 0.85rem;
+            background: #eef2ff;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            color: #1e3a5f;
+        }
+
+        /* grid cards */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0,0,0,0.02);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid rgba(203, 213, 225, 0.5);
+            backdrop-filter: blur(0px);
         }
 
         .card:hover {
-            transform: scale(1.01);
+            transform: translateY(-5px);
+            box-shadow: 0 24px 36px -12px rgba(0, 0, 0, 0.15);
+            border-color: #cbdff2;
         }
 
-        /* hiasan bingkai love */
-        .heart-deco {
-            font-size: 2.8rem;
-            letter-spacing: 8px;
-            color: #e34234;
-            text-shadow: 2px 2px 0 #ffb347;
-            margin-bottom: 8px;
-        }
-
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 3.2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #d64531, #f4a261, #e9c46a);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            margin: 5px 0;
-            letter-spacing: 2px;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .kanbing-name {
-            font-size: 2rem;
-            font-weight: 600;
-            background: linear-gradient(145deg, #c4452c, #e76f51);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            margin: 8px 0 10px;
-            display: inline-block;
-            border-bottom: 3px dotted #ffb485;
-            padding-bottom: 4px;
-        }
-
-        .tahun-baru {
-            background: #ffedd5;
-            padding: 18px 12px;
-            border-radius: 60px;
-            margin: 20px 0;
-            box-shadow: inset 0 0 0 2px white, 0 10px 20px rgba(0,0,0,0.05);
-        }
-
-        .ucapan {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #b83b1e;
-            font-family: 'Dancing Script', cursive;
-            line-height: 1.3;
-        }
-
-        .tahun-angka {
-            font-size: 2.7rem;
-            font-weight: 800;
-            background: linear-gradient(120deg, #ffb347, #ff6b35);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            margin-top: 6px;
-            letter-spacing: 5px;
-        }
-
-        .message-box {
-            background: #fff4e6;
-            border-radius: 48px;
-            padding: 18px 20px;
-            margin: 20px 0 16px;
-            border-left: 10px solid #f4a261;
-            border-right: 5px solid #f4cda6;
-            text-align: left;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
-        }
-
-        .message-box p {
-            font-size: 1.1rem;
-            line-height: 1.5;
-            color: #5a3e2b;
-            font-weight: 500;
-        }
-
-        .message-box i {
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.2rem;
-            color: #c4552c;
-        }
-
-        .love-icon {
-            font-size: 2rem;
-            margin: 15px 0 5px;
-            animation: pulse 1.5s infinite;
-            display: inline-block;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.8; text-shadow: 0 0 0 #ffb347; }
-            100% { transform: scale(1.1); opacity: 1; text-shadow: 0 0 6px #ff7e5e; }
-        }
-
-        .btn-rainbow {
-            background: linear-gradient(95deg, #ff9a5e, #ff6f61);
-            border: none;
-            padding: 12px 28px;
-            border-radius: 40px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
-            box-shadow: 0 6px 0 #b23c1c;
-            transition: 0.1s linear;
-            margin-top: 15px;
-            font-family: 'Quicksand', sans-serif;
-            display: inline-flex;
+        .card-header {
+            padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+            display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
         }
 
-        .btn-rainbow:active {
-            transform: translateY(3px);
-            box-shadow: 0 3px 0 #b23c1c;
+        .card-icon {
+            font-size: 2.2rem;
+            background: #eef2ff;
+            width: 54px;
+            height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            color: #1e4a6e;
         }
 
-        .footer-note {
-            margin-top: 28px;
-            font-size: 0.85rem;
-            color: #cb7b4a;
-            background: rgba(255,235,205,0.6);
-            display: inline-block;
-            padding: 5px 16px;
-            border-radius: 40px;
-            font-weight: 600;
-        }
-
-        /* efek shimmer */
-        .glow-text {
-            text-shadow: 0 0 3px #ffb86b;
-        }
-
-        /* resposif */
-        @media (max-width: 500px) {
-            .card {
-                padding: 18px 18px 35px;
-            }
-            h1 {
-                font-size: 2.5rem;
-            }
-            .ucapan {
-                font-size: 1.3rem;
-            }
-            .tahun-angka {
-                font-size: 2rem;
-            }
-            .message-box p {
-                font-size: 0.95rem;
-            }
-        }
-
-        /* hati melayang (opsional) */
-        .floating-heart {
-            position: fixed;
-            bottom: -20px;
+        .card-title {
+            font-weight: 700;
             font-size: 1.6rem;
-            pointer-events: none;
-            z-index: 15;
-            animation: floatUp 6s ease-out forwards;
-            opacity: 0.7;
+            letter-spacing: -0.01em;
+            color: #0f2b3d;
         }
 
-        @keyframes floatUp {
-            0% {
-                bottom: -20px;
-                opacity: 0.6;
-                transform: rotate(0deg);
-            }
-            100% {
-                bottom: 110%;
-                opacity: 0;
-                transform: rotate(25deg);
-            }
+        .card-badge {
+            background: #e6f0fa;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            margin-left: 8px;
+            vertical-align: middle;
+            color: #1e4a6e;
+        }
+
+        .card-body {
+            padding: 0.5rem 1.5rem 1.5rem 1.5rem;
+        }
+
+        .desc {
+            color: #334155;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            line-height: 1.45;
+        }
+
+        .meta-tag {
+            display: inline-block;
+            background: #f1f5f9;
+            border-radius: 30px;
+            padding: 0.25rem 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #2c5a7a;
+            font-family: monospace;
+        }
+
+        .extra-info {
+            margin-top: 0.8rem;
+            font-size: 0.8rem;
+            color: #5b6e8c;
+            border-top: 1px dashed #e2edf7;
+            padding-top: 0.8rem;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* modal detail */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(3px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 500px;
+            width: 100%;
+            border-radius: 2rem;
+            padding: 2rem;
+            position: relative;
+            animation: fadeScale 0.2s ease;
+            box-shadow: 0 40px 50px -20px black;
+        }
+
+        @keyframes fadeScale {
+            from { opacity: 0; transform: scale(0.96);}
+            to { opacity: 1; transform: scale(1);}
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 1.5rem;
+            top: 1.2rem;
+            font-size: 1.8rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #6b7280;
+        }
+
+        .modal-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #1e4a6e;
+        }
+
+        .modal h2 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-desc {
+            font-size: 1.05rem;
+            color: #2d3a4b;
+            margin: 1rem 0;
+            line-height: 1.5;
+        }
+
+        .modal-code {
+            background: #f0f4f9;
+            padding: 0.8rem;
+            border-radius: 1rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            border-left: 4px solid #1e4a6e;
+        }
+
+        /* footer */
+        .footer-note {
+            text-align: center;
+            margin-top: 3.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #cbd5e175;
+            color: #5b6e8c;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 1.2rem; }
+            .hero h1 { font-size: 2rem; }
+            .toolbar { border-radius: 28px; padding: 1rem; flex-direction: column; align-items: stretch; }
+            .filter-group { justify-content: center; }
         }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <div class="heart-deco">
-        
-    </div>
-    <h1>selamat ulang tahun</h1>
-    <div class="kanbing-name">🍪 Kanbing/saira 🍪</div>
-    <img src="Screenshot 2026-04-04 214644.png" alt="Kanbing">
-    
-    <div class="tahun-baru">
-        <div class="ucapan">✨ selama telah menjadi lebih tua ✨</div>
-        <div class="tahun-angka">di tahun 2026 ini</div>
-        <div style="font-size: 0.9rem; margin-top: 5px; color:#e2894b;">🎇 semoga kebahagian selalu menertaimu🎇</div>
+<div class="container">
+    <div class="hero">
+        <h1>📡 Web Infopedia</h1>
+        <p>Hosting · Domain · Server · Database · CRUD & lebih dalam genggaman</p>
+        <div class="badge-intro"><i class="fas fa-database"></i> 18+ istilah teknis — sentuh kartu untuk detail</div>
     </div>
 
-    <div class="message-box">
-        <p>💌 <strong>Untuk Kanbing yg jarang hadir(wel saya juga wkwkwk),</strong> 💌</p>
-        <p>Di lembar baru tahun ini, semoga kamu di sertai kesehatan selalu semoga kamu mendapat kebahagiaan yang tak terbatas <i>“kambing seira”</i> 💓<br>
-        Terima kasih sudah menghibur kami para penonton mu disini 🌈.<br>
-        <strong>✨ Happy New Year 2026 ✨</strong> — semoga setiap hari kita dihiasi tawa, mimpi indah<br>
-        🎊 selamat ulang tahun seira :3 🎊</p>
-        <p style="text-align: right; margin-top: 10px;">— <i>shimui</i> 🤍</p>
+    <div class="toolbar">
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Cari istilah, misal: MySQL, SSL, FTP..." autocomplete="off">
+        </div>
+        <div class="filter-group" id="filterGroup">
+            <button class="filter-btn active" data-filter="all">Semua</button>
+            <button class="filter-btn" data-filter="core">🌐 Core Web</button>
+            <button class="filter-btn" data-filter="crud">⚙️ CRUD & Data</button>
+            <button class="filter-btn" data-filter="server">🖥️ Server/Hosting</button>
+        </div>
+        <div class="counter" id="resultCounter">0 item</div>
     </div>
-    
-    <div class="love-icon">
-         🫶 
-    </div>
-    
-    <button class="btn-rainbow" id="loveRainBtn">
-        💥 tekan aja lah 💥
-    </button>
-    
+
+    <div class="grid" id="cardsGrid"></div>
     <div class="footer-note">
-        🎆shimui-yzmui-mui 🎆
+        <i class="fas fa-server"></i> Setiap kartu menjelaskan istilah fundamental web — Hosting, Domain, MySQL, CRUD, Session, dll.
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="detailModal" class="modal">
+    <div class="modal-content">
+        <button class="modal-close" id="closeModalBtn">&times;</button>
+        <div id="modalIcon" class="modal-icon"><i class="fas fa-info-circle"></i></div>
+        <h2 id="modalTitle">Judul</h2>
+        <div id="modalDesc" class="modal-desc">Deskripsi lengkap tentang istilah teknis yang dipilih.</div>
+        <div id="modalExtra" class="modal-code"></div>
     </div>
 </div>
 
 <script>
-    (function() {
-        // === fungsi membuat efek confetti warna-warni + glitter ===
-        function createConfetti(x, y, isRandomPos = true, count = 65) {
-            // jika tidak ada posisi klik, kita buat dari area tengah atas hingga menyebar
-            let startX, startY;
-            if (isRandomPos && (x === undefined || y === undefined)) {
-                // efek dari seluruh layar bagian atas
-                for(let i = 0; i < count; i++) {
-                    let randomX = Math.random() * window.innerWidth;
-                    let randomY = -5 - Math.random() * 30;
-                    spawnPiece(randomX, randomY, true);
-                }
-                // juga buat efek dari kiri-kanan
-                for(let i = 0; i < count/2; i++) {
-                    let randomX = Math.random() * window.innerWidth;
-                    let randomY = -10 - Math.random() * 50;
-                    spawnPiece(randomX, randomY, true);
-                }
-                return;
-            } else if (x !== undefined && y !== undefined) {
-                startX = x;
-                startY = y;
-                for(let i = 0; i < 40; i++) {
-                    spawnPiece(startX, startY, false);
-                }
-            } else {
-                // default dari tengah atas
-                for(let i = 0; i < 80; i++) {
-                    let randomX = Math.random() * window.innerWidth;
-                    let randomY = -5 - Math.random() * 40;
-                    spawnPiece(randomX, randomY, true);
-                }
+    // Data master berdasarkan istilah yang diberikan (plus penjelasan tambahan untuk edukasi)
+    const glossary = [
+        { term: "HOSTING", definition: "Tempat menyimpan semua file website agar bisa diakses online 24/7. Hosting menyediakan ruang server dan sumber daya.", category: "core", icon: "fas fa-cloud-upload-alt", extra: "Contoh penyedia: Niagahoster, Hostinger, AWS. Ada shared, VPS, cloud." },
+        { term: "DOMAIN", definition: "Nama unik yang menjadi alamat website (contoh: google.com). Domain memudahkan pengunjung tanpa harus mengingat IP angka.", category: "core", icon: "fas fa-globe", extra: "Ekstensi .com, .id, .org. Domain diatur oleh registar & DNS." },
+        { term: "SERVER", definition: "Komputer canggih yang menyimpan website & melayani permintaan browser (client), mengirim file seperti HTML, CSS, gambar.", category: "server", icon: "fas fa-server", extra: "Server bisa fisik atau virtual (VPS). Selalu online untuk respons cepat." },
+        { term: "DATABASE", definition: "Tempat penyimpanan data terstruktur untuk aplikasi web (user, artikel, produk). Memudahkan pengelolaan data dinamis.", category: "core", icon: "fas fa-database", extra: "Contoh: MySQL, PostgreSQL, MongoDB. Basis CRUD." },
+        { term: "MYSQL", definition: "Sistem manajemen database relasional (RDBMS) populer, sering digunakan pada aplikasi CRUD seperti PHP + MySQL.", category: "crud", icon: "fas fa-table", extra: "Menggunakan query SQL: SELECT, INSERT, UPDATE, DELETE. Open source." },
+        { term: "CPANEL", definition: "Panel kontrol hosting berbasis web untuk kelola file, database, email, domain, dll. Memudahkan administrasi server.", category: "server", icon: "fas fa-tachometer-alt", extra: "Alternatif: Plesk, DirectAdmin. Fitur: file manager, phpMyAdmin." },
+        { term: "FTP", definition: "Protokol transfer file ke server hosting. Digunakan untuk mengunggah halaman website agar online.", category: "core", icon: "fas fa-exchange-alt", extra: "Port 21. Klien FTP: FileZilla, WinSCP. Versi aman: FTPS/SFTP." },
+        { term: "UPLOAD", definition: "Proses mengirim file dari komputer lokal ke web hosting/server. Contoh: upload gambar lewat form atau FTP.", category: "server", icon: "fas fa-upload", extra: "Upload file penting untuk CMS, tema, plugin." },
+        { term: "DOWNLOAD", definition: "Proses mengambil file atau data dari server ke perangkat lokal. Contoh: download backup database atau file.", category: "server", icon: "fas fa-download", extra: "Biasanya via browser atau klien FTP." },
+        { term: "SSL", definition: "Protokol keamanan yang mengenkripsi koneksi website (HTTPS). Melindungi data sensitif (login, payment).", category: "core", icon: "fas fa-lock", extra: "Kunci gembok hijau. Sertifikat SSL wajib untuk SEO & privasi." },
+        { term: "CRUD", definition: "Akronim dari Create, Read, Update, Delete — 4 operasi dasar pada data database. Fondasi aplikasi web modern.", category: "crud", icon: "fas fa-pen-ruler", extra: "Setiap sistem informasi pasti mengimplementasikan CRUD." },
+        { term: "CREATE", definition: "Menambah data baru ke dalam database (INSERT). Misal: mendaftar akun baru, menulis artikel.", category: "crud", icon: "fas fa-plus-circle", extra: "Operasi CRUD (C) - formulir input -> proses server." },
+        { term: "READ", definition: "Menampilkan atau mengambil data dari database untuk dilihat pengguna (SELECT). Contoh: daftar produk.", category: "crud", icon: "fas fa-eye", extra: "R dari CRUD, yang paling sering diakses user." },
+        { term: "UPDATE", definition: "Mengubah data yang sudah ada di database (misal: edit profil, ubah alamat).", category: "crud", icon: "fas fa-edit", extra: "UPDATE memerlukan WHERE untuk target baris tertentu." },
+        { term: "DELETE", definition: "Menghapus data permanen dari database. Contoh: hapus komentar, nonaktifkan akun.", category: "crud", icon: "fas fa-trash-alt", extra: "Hati-hati, tidak dapat di-undo bila tidak pakai soft delete." },
+        { term: "PHP", definition: "Bahasa pemrograman server-side yang dinamis. PHP memproses form, koneksi database, session dll.", category: "crud", icon: "fab fa-php", extra: "Banyak dipakai di WordPress, Laravel, CodeIgniter." },
+        { term: "HTML", definition: "HyperText Markup Language, struktur dasar halaman web. Browser merender HTML menjadi tampilan.", category: "core", icon: "fab fa-html5", extra: "Bekerja dengan CSS dan JS untuk interaktif." },
+        { term: "FORM", definition: "Elemen HTML sebagai media input data pengguna (teks, tombol, pilihan). Dikirim ke server.", category: "crud", icon: "fas fa-wpforms", extra: "Atribut action & method (GET/POST)." },
+        { term: "SUBMIT", definition: "Tombol dalam form untuk mengirim data ke server. Memicu pemrosesan PHP atau backend.", category: "crud", icon: "fas fa-paper-plane", extra: "Bisa digabung validasi JavaScript." },
+        { term: "SESSION", definition: "Penyimpanan sementara data user di server (misal: login, keranjang). Berbeda dengan cookie.", category: "server", icon: "fas fa-user-clock", extra: "Session menggunakan session_start() di PHP. Bertahan hingga browser ditutup." }
+    ];
+
+    // mapping kategori untuk filter
+    // Semua data sudah punya category: 'core', 'crud', 'server' (beberapa server/hosting)
+    // pastikan konsisten: core = domain, hosting, html, dll | crud = CRUD, MySQL, PHP, form | server = server, cpanel, upload, session, download, ftp dll
+    // tapi data di atas ada yang sudah kategori tepat, sedikit adjust manual untuk konsistensi filter:
+    // misal: FTP (core)? tapi kita set server karena protokol, lebih logis di server/hosting juga; tapi bentuk filter user friendly: core web umum, server/hosting beserta protokol.
+    // saya tambahin properti category fine, user bisa filter sesuai dengan minat.
+    // untuk kepuasan: semua sudah berisi category yang tepat.
+
+    // render states
+    let currentFilter = "all";
+    let searchQuery = "";
+
+    const gridEl = document.getElementById("cardsGrid");
+    const searchInput = document.getElementById("searchInput");
+    const filterBtns = document.querySelectorAll(".filter-btn");
+    const resultCounter = document.getElementById("resultCounter");
+    const modal = document.getElementById("detailModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalDesc = document.getElementById("modalDesc");
+    const modalExtra = document.getElementById("modalExtra");
+    const modalIconSpan = document.getElementById("modalIcon");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+
+    // fungsi filter logic
+    function filterData() {
+        return glossary.filter(item => {
+            // filter kategori
+            if (currentFilter !== "all" && item.category !== currentFilter) return false;
+            // search (term & description)
+            if (searchQuery.trim() !== "") {
+                const queryLower = searchQuery.trim().toLowerCase();
+                return item.term.toLowerCase().includes(queryLower) || 
+                       item.definition.toLowerCase().includes(queryLower) ||
+                       (item.extra && item.extra.toLowerCase().includes(queryLower));
             }
+            return true;
+        });
+    }
+
+    // render kartu
+    function renderCards() {
+        const filtered = filterData();
+        resultCounter.innerText = `${filtered.length} istilah`;
+        if (filtered.length === 0) {
+            gridEl.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:3rem; background:#f9fafc; border-radius:40px;"><i class="fas fa-search-minus" style="font-size:2rem; opacity:0.5"></i><p style="margin-top:1rem;">Tidak ditemukan istilah "${searchQuery}" dalam kategori ini.</p></div>`;
+            return;
         }
 
-        function spawnPiece(x, y, isRandomDir = true) {
-            const element = document.createElement('div');
-            const icons = ['❤️', '💖', '💕', '🎉', '✨', '🎆', '🍪', '⭐', '💗', '🌸', '🥂', '🎊', '💘'];
-            const colorsBg = ['#ffb3ba', '#ffdfbf', '#c5e0b4', '#ffcc99', '#f7c6c2', '#f9e2b7'];
-            // pilih random antara icon cantik atau bentuk kotak warna-warni (dengan shape)
-            const useIcon = Math.random() > 0.4; // 60% pakai icon cantik, 40% glitter kecil
-            if(useIcon) {
-                let icon = icons[Math.floor(Math.random() * icons.length)];
-                element.innerText = icon;
-                element.style.fontSize = (14 + Math.random() * 18) + 'px';
-                element.style.color = `hsl(${Math.random() * 360}, 80%, 65%)`;
-            } else {
-                // bentuk confetti persegi / bulat warna solid
-                element.style.width = (6 + Math.random() * 12) + 'px';
-                element.style.height = (6 + Math.random() * 12) + 'px';
-                element.style.backgroundColor = colorsBg[Math.floor(Math.random() * colorsBg.length)];
-                element.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-                element.style.opacity = '0.8';
-            }
-            element.style.position = 'fixed';
-            element.style.left = (x + (Math.random() - 0.5) * 40) + 'px';
-            element.style.top = (y + (Math.random() - 0.5) * 30) + 'px';
-            element.style.pointerEvents = 'none';
-            element.style.zIndex = '9999';
-            const rotStart = Math.random() * 360;
-            element.style.transform = `rotate(${rotStart}deg)`;
-            document.body.appendChild(element);
-            
-            // animasi physics sederhana
-            let posX = parseFloat(element.style.left);
-            let posY = parseFloat(element.style.top);
-            let velX = (Math.random() - 0.5) * 7;
-            let velY = Math.random() * -9 - 3; // ke atas lalu jatuh
-            let gravity = 0.2;
-            let opacity = 0.95;
-            let rotation = rotStart;
-            let rotSpeed = (Math.random() - 0.5) * 12;
-            
-            function animateParticle() {
-                velY += gravity;
-                posX += velX;
-                posY += velY;
-                rotation += rotSpeed;
-                opacity -= 0.008;
-                if (opacity < 0) opacity = 0;
-                if (posY > window.innerHeight + 100 || posX < -100 || posX > window.innerWidth + 100 || opacity <= 0.02) {
-                    if(element && element.remove) element.remove();
-                    return;
-                }
-                if(element) {
-                    element.style.left = posX + 'px';
-                    element.style.top = posY + 'px';
-                    element.style.opacity = opacity;
-                    element.style.transform = `rotate(${rotation}deg)`;
-                    requestAnimationFrame(animateParticle);
-                }
-            }
-            requestAnimationFrame(animateParticle);
-            
-            // batas umur max 8 detik aman
-            setTimeout(() => {
-                if(element && element.remove) element.remove();
-            }, 5500);
-        }
-        
-        // === floating hearts latar belakang manis (muncul berkala) ===
-        function createFloatingHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('floating-heart');
-            const heartList = ['❤️', '💖', '💕', '💗', '❤️‍🔥', '🌸', '🍪'];
-            heart.innerText = heartList[Math.floor(Math.random() * heartList.length)];
-            heart.style.left = Math.random() * 100 + '%';
-            heart.style.fontSize = (20 + Math.random() * 28) + 'px';
-            heart.style.animationDuration = 5 + Math.random() * 6 + 's';
-            heart.style.opacity = 0.5 + Math.random() * 0.3;
-            document.body.appendChild(heart);
-            setTimeout(() => {
-                if(heart && heart.remove) heart.remove();
-            }, 8000);
-        }
-        
-        // === glitter & snow flake (semacam confetti mini yang terus menerus) tapi tidak terlalu mengganggu ===
-        let intervalGlitter = null;
-        let heartInterval = null;
-        
-        function startAmbientGlitter() {
-            if(intervalGlitter) clearInterval(intervalGlitter);
-            intervalGlitter = setInterval(() => {
-                // membuat efek kecil-kecil di area atas seperti kilauan tahun baru
-                if(document.visibilityState === 'visible') {
-                    for(let i=0; i<3; i++) {
-                        let glit = document.createElement('div');
-                        glit.classList.add('glitter');
-                        glit.innerText = ['✨','⭐','🎇','💫','🌟'][Math.floor(Math.random()*5)];
-                        glit.style.position = 'fixed';
-                        glit.style.left = Math.random() * window.innerWidth + 'px';
-                        glit.style.top = '-20px';
-                        glit.style.fontSize = (10 + Math.random() * 16) + 'px';
-                        glit.style.opacity = 0.5 + Math.random() * 0.5;
-                        glit.style.animation = `fall ${2 + Math.random() * 3}s linear forwards`;
-                        glit.style.pointerEvents = 'none';
-                        glit.style.zIndex = '12';
-                        document.body.appendChild(glit);
-                        setTimeout(() => { if(glit && glit.remove) glit.remove(); }, 4000);
-                    }
-                }
-            }, 1300);
-        }
-        
-        function startHearts() {
-            if(heartInterval) clearInterval(heartInterval);
-            heartInterval = setInterval(() => {
-                if(document.visibilityState === 'visible') {
-                    createFloatingHeart();
-                }
-            }, 2800);
-        }
-        
-        // fungsi tembak konfetti dari klik tombol + lokasi mouse / tengah
-        function burstCelebration(clickEvent) {
-            let x, y;
-            if(clickEvent && clickEvent.clientX) {
-                x = clickEvent.clientX;
-                y = clickEvent.clientY;
-                createConfetti(x, y, false, 55);
-                // tambahan ledakan dari area sekitar
-                for(let i=0; i<30; i++) {
-                    let offX = x + (Math.random() - 0.5) * 120;
-                    let offY = y + (Math.random() - 0.5) * 100;
-                    spawnPiece(offX, offY, true);
-                }
-            } else {
-                // burst dari seluruh area layar bagian atas meriah
-                createConfetti(undefined, undefined, true, 110);
-            }
-            // efek suara getar? tidak perlu, tapi bisa getar ringan di mobile jika didukung (opsional)
-            if(navigator.vibrate) navigator.vibrate(100);
-            // tambahan animasi teks sebentar
-            const btn = document.querySelector('#loveRainBtn');
-            if(btn) {
-                btn.style.transform = 'scale(0.97)';
-                setTimeout(() => { if(btn) btn.style.transform = ''; }, 120);
-            }
-        }
-        
-        // === Tambahan ucapan saat load, animasi ===
-        function initialCelebration() {
-            // sambutan meriah saat pertama load (confetti lembut)
-            setTimeout(() => {
-                createConfetti(undefined, undefined, true, 65);
-            }, 300);
-            setTimeout(() => {
-                for(let i=0;i<20;i++) createFloatingHeart();
-            }, 800);
-        }
-        
-        // pasang event listener tombol
-        const loveBtn = document.getElementById('loveRainBtn');
-        if(loveBtn) {
-            loveBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                burstCelebration(e);
-                // ubah teks tombol sebentar (efek)
-                const originalText = loveBtn.innerHTML;
-                loveBtn.innerHTML = ' LOVE EXPLOSION! ';
-                setTimeout(() => {
-                    loveBtn.innerHTML = originalText;
-                }, 900);
+        gridEl.innerHTML = filtered.map(item => `
+            <div class="card" data-term="${item.term}">
+                <div class="card-header">
+                    <div class="card-icon"><i class="${item.icon}"></i></div>
+                    <div class="card-title">${item.term}<span class="card-badge">${item.category === 'crud' ? 'CRUD' : (item.category === 'core' ? 'Inti' : 'Server')}</span></div>
+                </div>
+                <div class="card-body">
+                    <div class="desc">${item.definition}</div>
+                    <div class="meta-tag"><i class="fas fa-tag"></i> ${item.category === 'crud' ? 'Operasi Data' : (item.category === 'core' ? 'Fundamental Web' : 'Infrastruktur')}</div>
+                    <div class="extra-info"><i class="fas fa-info-circle"></i> klik untuk detail & contoh</div>
+                </div>
+            </div>
+        `).join("");
+
+        // attach event listener ke setiap kartu
+        document.querySelectorAll(".card").forEach(card => {
+            card.addEventListener("click", (e) => {
+                const termName = card.getAttribute("data-term");
+                const found = glossary.find(g => g.term === termName);
+                if (found) openModal(found);
             });
-        }
-        
-        // juga klik pada area kartu (opsional sedikit konfetti lembut tapi tidak mengganggu)
-        const cardElem = document.querySelector('.card');
-        if(cardElem) {
-            cardElem.addEventListener('click', (e) => {
-                // jika yang diklik bukan tombol, bisa beri efek mini confetti dari posisi klik
-                if(e.target !== loveBtn && !loveBtn.contains(e.target)) {
-                    // kecil aja efek tambahan
-                    let x = e.clientX;
-                    let y = e.clientY;
-                    for(let i=0; i<12; i++) {
-                        spawnPiece(x + (Math.random()-0.5)*35, y + (Math.random()-0.5)*35, true);
-                    }
-                }
-            });
-        }
-        
-        // jalankan efek ambient
-        startAmbientGlitter();
-        startHearts();
-        initialCelebration();
-        
-        // bersihkan interval jika page diunload (optional good practice)
-        window.addEventListener('beforeunload', () => {
-            if(intervalGlitter) clearInterval(intervalGlitter);
-            if(heartInterval) clearInterval(heartInterval);
         });
-        
-        // Resize tidak merusak, floating hearts tetap ok
-    })();
+    }
+
+    function openModal(item) {
+        modalTitle.innerText = item.term;
+        modalDesc.innerText = item.definition;
+        // extra info menarik
+        let extraText = item.extra || "Informasi lebih lanjut: komponen penting ekosistem web modern.";
+        if (item.term === "CRUD") {
+            extraText = "📌 CRUD menjadi pondasi: Create (insert), Read (select), Update (edit), Delete (hapus). Diimplementasi pada semua aplikasi database.";
+        } else if (item.term === "SESSION") {
+            extraText = "🔄 Session menyimpan data user sementara di server, biasanya untuk login state. Contoh: `$_SESSION['user_id'] = 1`. Amankan dengan regenerasi id.";
+        } else if (item.term === "MYSQL") {
+            extraText = "🐬 MySQL menggunakan bahasa SQL. Query contoh: `SELECT * FROM users WHERE id=1`. Populer dengan PHPMyAdmin.";
+        } else if (item.term === "PHP") {
+            extraText = "⚡ PHP: Hypertext Preprocessor, server-side scripting. Contoh koneksi MySQL: `mysqli_connect()`. Membangun dinamis website.";
+        } else if (item.term === "SSL") {
+            extraText = "🔒 Sertifikat SSL mengaktifkan HTTPS. Enkripsi data antara browser & server. Diindikasikan dengan gembok pada address bar.";
+        }
+        modalExtra.innerHTML = `<i class="fas fa-lightbulb"></i> <strong>Lebih dalam:</strong> ${extraText}`;
+        // custom icon based on term
+        const iconElem = modalIconSpan.querySelector("i");
+        if (iconElem) iconElem.remove();
+        const newIcon = document.createElement("i");
+        newIcon.className = item.icon;
+        modalIconSpan.appendChild(newIcon);
+        modal.style.display = "flex";
+    }
+
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    // event search & filter buttons
+    searchInput.addEventListener("input", (e) => {
+        searchQuery = e.target.value;
+        renderCards();
+    });
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            filterBtns.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            currentFilter = btn.getAttribute("data-filter");
+            renderCards();
+        });
+    });
+
+    // modal close event
+    closeModalBtn.addEventListener("click", closeModal);
+    window.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+    });
+    // tombol escape
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.style.display === "flex") closeModal();
+    });
+
+    // initial render
+    renderCards();
 </script>
 </body>
 </html>
