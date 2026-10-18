@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doksli A-Tjkt1 — Arsip Resmi Kelas</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- QRCode.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        cyber: {
+                            dark: '#0f172a',
+                            light: '#1e293b',
+                            accent: '#38bdf8',
+                            neon: '#818cf8'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #090d16;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        }
+
+        .glow-blob {
+            position: absolute;
+            filter: blur(90px);
+            z-index: -1;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .img-card {
+            overflow: hidden;
+        }
+        .img-card img {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .img-card:hover img {
+            transform: scale(1.08);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090d16;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #38bdf8;
+        }
+
+        .lb-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid #334155;
+            color: #e2e8f0;
+            width: 48px;
+            height: 48px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+        .lb-nav:hover {
+            background: #38bdf8;
+            color: #090d16;
+            border-color: #38bdf8;
+        }
+
+        /* Video container responsive */
+        .video-wrap {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            background: #000;
+        }
+        .video-wrap iframe,
+        .video-wrap video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+    </style>
+</head>
+<body class="bg-grid min-h-screen relative selection:bg-cyan-500 selection:text-white">
+
+    <!-- Background Glowing Blobs -->
+    <div class="glow-blob bg-cyan-600 w-96 h-96 rounded-full top-0 left-0"></div>
+    <div class="glow-blob bg-indigo-600 w-96 h-96 rounded-full bottom-1/3 right-0"></div>
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-40 backdrop-blur-md bg-[#090d16]/80 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="terminal" class="text-cyan-400 w-6 h-6"></i>
+                    <span class="font-display font-bold text-xl tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-400">
+                        doksli A--P Tjkt1
+                    </span>
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
+                    <a href="#galeri" class="hover:text-cyan-400 transition-colors flex items-center gap-1"><i data-lucide="image" class="w-4 h-4"></i> Galeri (5)</a>
+                    <a href="#video" class="hover:text-cyan-400 transition-colors flex items-center gap-1"><i data-lucide="video" class="w-4 h-4"></i> Video (4)</a>
+                    <a href="#barcode" class="hover:text-cyan-400 transition-colors flex items-center gap-1"><i data-lucide="qr-code" class="w-4 h-4"></i> Akses Web</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-16 pb-12 md:pt-24 md:pb-20 px-4 text-center max-w-4xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-cyan-400 text-xs font-medium mb-6">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+            </span>
+            Arsip Resmi Kelas
+        </div>
+        <h1 class="font-display text-5xl md:text-7xl font-bold tracking-tight mb-6">
+            doksli <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500">A-Tjkt1</span>
+        </h1>
+        <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+            Dokumentasi Asli — kumpulan foto &amp; video kegiatan kelas TJKT 1.
+        </p>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 pb-24">
+
+        <!-- SECTION 1: 5 GAMBAR (Bento Grid Layout) -->
+        <section id="galeri" class="scroll-mt-24">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-8">
+                <div>
+                    <h2 class="font-display text-2xl md:text-3xl font-bold flex items-center gap-2">
+                        <i data-lucide="camera" class="text-cyan-400"></i> BUKTI YG TERSEBAR
+                    </h2>
+                    <p class="text-slate-400 text-sm mt-1">5 Dokumentasi kegiatan dan praktikum A-Tjkt1</p>
+                </div>
+                <span class="self-start px-3 py-1 bg-slate-800 text-slate-300 rounded-md text-xs font-mono">Total: 5 File</span>
+            </div>
+
+            <!-- Grid 5 Gambar -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[240px]">
+
+                <!-- Gambar 1 (Besar - Kiri) -->
+                <div class="img-card relative rounded-2xl border border-slate-800 bg-slate-900 md:col-span-2 md:row-span-2 group cursor-pointer" onclick="openLightbox(0)">
+                    <img src="IMG-20261002-WA0000.jpg" alt="Server Room" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <span class="text-xs font-mono text-cyan-400 bg-cyan-950/80 border border-cyan-800 px-2 py-1 rounded backdrop-blur-sm">DOKSLI_01.JPG</span>
+                        <h3 class="font-display text-lg font-bold mt-2 text-white"></h3>
+                    </div>
+                </div>
+
+                <!-- Gambar 2 -->
+                <div class="img-card relative rounded-2xl border border-slate-800 bg-slate-900 group cursor-pointer" onclick="openLightbox(1)">
+                    <img src="IMG-20261002-WA0001.jpg" alt="Crimping Kabel LAN" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
+                    <div class="absolute bottom-0 left-0 p-4">
+                        <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/80 px-1.5 py-0.5 rounded">DOKSLI_02.JPG</span>
+                        <h3 class="font-display text-sm font-bold mt-1 text-white"></h3>
+                    </div>
+                </div>
+
+                <!-- Gambar 3 -->
+                <div class="img-card relative rounded-2xl border border-slate-800 bg-slate-900 group cursor-pointer" onclick="openLightbox(2)">
+                    <img src="IMG-20261002-WA0002.jpg" alt="Coding/Matrix" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
+                    <div class="absolute bottom-0 left-0 p-4">
+                        <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/80 px-1.5 py-0.5 rounded">DOKSLI_03.JPG</span>
+                        <h3 class="font-display text-sm font-bold mt-1 text-white"></h3>
+                    </div>
+                </div>
+
+                <!-- Gambar 4 -->
+                <div class="img-card relative rounded-2xl border border-slate-800 bg-slate-900 group cursor-pointer" onclick="openLightbox(3)">
+                    <img src="IMG-20261002-WA0003.jpg" alt="Hardware" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
+                    <div class="absolute bottom-0 left-0 p-4">
+                        <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/80 px-1.5 py-0.5 rounded">DOKSLI_04.JPG</span>
+                        <h3 class="font-display text-sm font-bold mt-1 text-white"></h3>
+                    </div>
+                </div>
+
+                <!-- Gambar 5 -->
+                <div class="img-card relative rounded-2xl border border-slate-800 bg-slate-900 group cursor-pointer" onclick="openLightbox(4)">
+                    <img src="IMG-20261002-WA0004.jpg" alt="Teamwork" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
+                    <div class="absolute bottom-0 left-0 p-4">
+                        <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/80 px-1.5 py-0.5 rounded">DOKSLI_05.JPG</span>
+                        <h3 class="font-display text-sm font-bold mt-1 text-white"></h3>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 2: 4 VIDEO -->
+        <section id="video" class="scroll-mt-24">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-8">
+                <div>
+                    <h2 class="font-display text-2xl md:text-3xl font-bold flex items-center gap-2">
+                        <i data-lucide="film" class="text-indigo-400"></i> Rekaman Video
+                    </h2>
+                    <p class="text-slate-400 text-sm mt-1">4 Video dokumentasi aktivitas kelas</p>
+                </div>
+                <span class="self-start px-3 py-1 bg-slate-800 text-slate-300 rounded-md text-xs font-mono">Total: 4 File</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                
+                
+                <!-- Video 4 - Google Drive (slot ke-4, jika ada) -->
+                <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-4 backdrop-blur-sm hover:border-slate-700 transition-all">
+                    <div class="video-wrap mb-4">
+                        <!-- Ganti dengan link video ke-4 jika ada -->
+                        <iframe 
+                            src="https://drive.google.com/file/d/15kU85ToA8fstz4y5CXEtbwmv6lPAB0ZI/preview"
+                            allow="autoplay; fullscreen"
+                            allowfullscreen
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                    <div class="flex items-start justify-between px-2">
+                        <div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 3: BARCODE / QR CODE KE WEB -->
+        <section id="barcode" class="scroll-mt-24">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800/80 to-slate-900 border border-slate-700/80 rounded-3xl p-8 md:p-12 relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mt-16 -mr-16 text-slate-800/30 pointer-events-none">
+                    <i data-lucide="qr-code" class="w-64 h-64"></i>
+                </div>
+
+                <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                    <div class="max-w-xl space-y-4 text-center md:text-left">
+                        <div class="inline-flex items-center gap-2 text-cyan-400 font-mono text-sm">
+                            <i data-lucide="scan-line" class="w-4 h-4"></i> BAGIKAN DOKSLI
+                        </div>
+                        <h2 class="font-display text-3xl md:text-4xl font-bold text-white">
+                            Akses Cepat via Barcode
+                        </h2>
+                        <p class="text-slate-300 leading-relaxed">
+                            Scan QR Code (Barcode) di samping menggunakan kamera HP untuk membuka halaman web <b>doksli A-Tjkt1</b> ini secara langsung. Kamu juga bisa mengubah link tujuan barcode di bawah.
+                        </p>
+
+                        <div class="pt-2 flex flex-col sm:flex-row gap-2 max-w-md mx-auto md:mx-0">
+                            <input type="text" id="urlInput" placeholder="Masukkan link web (opsional)"
+                                class="bg-slate-950 border border-slate-700 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400 flex-grow font-mono"
+                                value="">
+                            <button onclick="updateQR()" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold px-4 py-2 rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
+                                <i data-lucide="refresh-cw" class="w-4 h-4"></i> Update QR
+                            </button>
+                        </div>
+                        <p class="text-xs text-slate-500 font-mono" id="currentUrlText"></p>
+                    </div>
+
+                    <div class="flex flex-col items-center">
+                        <div class="bg-white p-4 rounded-2xl shadow-[0_0_40px_rgba(56,189,248,0.2)] border-4 border-cyan-500/20">
+                            <div id="qrcode" class="w-[180px] h-[180px] flex items-center justify-center"></div>
+                        </div>
+                        <span class="font-mono text-xs text-slate-400 mt-3 tracking-widest uppercase">SCAN ME • A-TJKT1</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800/80 bg-[#06090f] py-8 text-center text-slate-500 text-sm">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="font-display font-semibold text-slate-400">doksli A-Tjkt1 &copy; 2023</p>
+            <p class="flex items-center gap-1 text-xs">
+               
+            </p>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal untuk Gambar -->
+    <div id="lightbox" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex-col items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <button onclick="closeLightbox()" aria-label="Tutup" class="absolute top-6 right-6 text-slate-400 hover:text-white bg-slate-800/50 p-2 rounded-full z-10">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <button onclick="event.stopPropagation(); navLightbox(-1)" aria-label="Sebelumnya" class="lb-nav left-4 md:left-8">
+            <i data-lucide="chevron-left" class="w-6 h-6"></i>
+        </button>
+        <button onclick="event.stopPropagation(); navLightbox(1)" aria-label="Berikutnya" class="lb-nav right-4 md:right-8">
+            <i data-lucide="chevron-right" class="w-6 h-6"></i>
+        </button>
+        <img id="lightbox-img" src="" alt="Preview" class="max-h-[80vh] max-w-[90vw] rounded-lg shadow-2xl border border-slate-800 object-contain">
+        <h3 id="lightbox-caption" class="font-display text-xl text-white mt-4 font-bold text-center"></h3>
+        <p id="lightbox-counter" class="font-mono text-xs text-slate-400 mt-1"></p>
+    </div>
+
+    <script>
+        // Inisialisasi Icons
+        lucide.createIcons();
+
+        // ---------------------------------------------------------
+        // DATA GALERI (untuk lightbox + navigasi)
+        // ---------------------------------------------------------
+        const galleryData = [
+            { src: 'IMG-20261002-WA0000.jpg', caption: 'DOKSLI_01.JPG — Ruang Server & Perangkat Jaringan' },
+            { src: 'IMG-20261002-WA0001.jpg', caption: 'DOKSLI_02.JPG — Crimping Kabel LAN' },
+            { src: 'IMG-20261002-WA0002.jpg', caption: 'DOKSLI_03.JPG — Praktik Konfigurasi' },
+            { src: 'IMG-20261002-WA0003.jpg', caption: 'DOKSLI_04.JPG — Perakitan Hardware' },
+            { src: 'IMG-20261002-WA0004.jpg', caption: 'DOKSLI_05.JPG — Kerja Kelompok' }
+        ];
+        let currentIndex = 0;
+
+        // ---------------------------------------------------------
+        // QR CODE (Barcode)
+        // ---------------------------------------------------------
+        let qrcodeObj = null;
+        const defaultUrl = window.location.href;
+        const urlInput = document.getElementById('urlInput');
+        const currentUrlText = document.getElementById('currentUrlText');
+
+        function generateQRCode(url) {
+            const qrContainer = document.getElementById("qrcode");
+            qrContainer.innerHTML = "";
+
+            qrcodeObj = new QRCode(qrContainer, {
+                text: url,
+                width: 180,
+                height: 180,
+                colorDark : "#090d16",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+            currentUrlText.innerText = "Tautan aktif: " + (url.length > 40 ? url.substring(0, 40) + "..." : url);
+        }
+
+        window.addEventListener('load', () => {
+            const initialUrl = defaultUrl.startsWith('http') ? defaultUrl : 'https://doksli-a-tjkt1.sekolah.id';
+            urlInput.value = initialUrl;
+            generateQRCode(initialUrl);
+        });
+
+        function updateQR() {
+            const newUrl = urlInput.value.trim();
+            if (newUrl !== "") {
+                generateQRCode(newUrl);
+            } else {
+                alert("Masukkan URL terlebih dahulu!");
+            }
+        }
+
+        // ---------------------------------------------------------
+        // LIGHTBOX (Perbesar Gambar + Navigasi)
+        // ---------------------------------------------------------
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        const lightboxCounter = document.getElementById('lightbox-counter');
+
+        function renderLightbox(index) {
+            if (index < 0) index = galleryData.length - 1;
+            if (index >= galleryData.length) index = 0;
+            currentIndex = index;
+
+            const item = galleryData[currentIndex];
+            lightboxImg.src = item.src;
+            lightboxCaption.innerText = item.caption;
+            lightboxCounter.innerText = (currentIndex + 1) + " / " + galleryData.length;
+        }
+
+        function openLightbox(index) {
+            renderLightbox(index);
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
+            setTimeout(() => {
+                lightbox.classList.remove('opacity-0');
+            }, 10);
+        }
+
+        function closeLightbox() {
+            lightbox.classList.add('opacity-0');
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                lightbox.classList.remove('flex');
+            }, 300);
+        }
+
+        function navLightbox(dir) {
+            renderLightbox(currentIndex + dir);
+        }
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.classList.contains('hidden')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navLightbox(-1);
+            if (e.key === 'ArrowRight') navLightbox(1);
+        });
+    </script>
+</body>
+</html>
